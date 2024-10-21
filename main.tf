@@ -1,17 +1,21 @@
-resource "google_storage_bucket" "my-bucket" {
-  name                     = "tt-githubdemo-bucket-001"
-  project                  = "prj-adc-gcp-devsecops"
-  location                 = "me-central2"
-  force_destroy            = true
-  public_access_prevention = "enforced"
+provider "google" {
+  project = "prj-adc-gcp-devsecops"
+  region  = "me-central2"
+  # Workload Identity automatically uses the correct service account from Kubernetes
 }
-#
-resource "google_storage_bucket" "my-bucket2" {
-  name                     = "tt-githubdemo-bucket-002"
-  project                  = "prj-adc-gcp-devsecops"
-  location                 = "me-central2"
-  force_destroy            = true
-  public_access_prevention = "enforced"
+
+data "google_project" "my_project" {
+  project_id = "prj-adc-gcp-devsecops"
 }
-#
-### dummy
+
+output "project_name" {
+  value = data.google_project.my_project.name
+}
+
+output "project_number" {
+  value = data.google_project.my_project.number
+}
+
+output "project_id" {
+  value = data.google_project.my_project.project_id
+}
