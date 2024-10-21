@@ -1,3 +1,14 @@
+terraform { 
+  cloud { 
+    hostname = "terraform-dev.nawat.me" 
+    organization = "ADC" 
+
+    workspaces { 
+      name = "pipeline-test" 
+    } 
+  } 
+}
+
 provider "google" {
   project = "prj-adc-gcp-devsecops"
   region  = "me-central2"
